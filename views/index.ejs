@@ -1,0 +1,32 @@
+<%- include('partials/header', { title: 'Ask a Question' }) %>
+
+<main class="page">
+  <section class="card">
+    <h1>Ask a Question</h1>
+    <p class="subtitle">Have a question for us? Pick a location and let us know.</p>
+
+    <% if (submitted) { %>
+      <p class="alert alert-success">Thanks — your question has been submitted.</p>
+    <% } %>
+    <% if (error) { %>
+      <p class="alert alert-error"><%= error %></p>
+    <% } %>
+
+    <form action="/questions" method="POST" class="question-form">
+      <label for="locationId">Location</label>
+      <select name="locationId" id="locationId" required>
+        <option value="" disabled <%= !selectedLocationId ? 'selected' : '' %>>Select a location&hellip;</option>
+        <% locations.forEach(function(location) { %>
+          <option value="<%= location.id %>" <%= selectedLocationId === location.id ? 'selected' : '' %>><%= location.name %></option>
+        <% }); %>
+      </select>
+
+      <label for="question">Your question</label>
+      <textarea name="question" id="question" rows="5" required placeholder="Type your question here..."><%= questionValue %></textarea>
+
+      <button type="submit">Submit Question</button>
+    </form>
+  </section>
+</main>
+
+<%- include('partials/footer') %>

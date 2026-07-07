@@ -1,0 +1,34 @@
+<%- include('../partials/header', { title: 'Admin - Questions' }) %>
+
+<main class="page">
+  <section class="card card-wide">
+    <%- include('../partials/admin-nav', { active: 'questions' }) %>
+
+    <h1>Submitted Questions</h1>
+
+    <% if (questions.length === 0) { %>
+      <p class="subtitle">No questions have been submitted yet.</p>
+    <% } else { %>
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Submitted</th>
+            <th>Location</th>
+            <th>Question</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% questions.forEach(function(q) { %>
+            <tr>
+              <td><%= new Date(q.createdAt).toLocaleString() %></td>
+              <td><%= locationNames[q.locationId] || 'Unknown' %></td>
+              <td><%= q.question %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    <% } %>
+  </section>
+</main>
+
+<%- include('../partials/footer') %>
