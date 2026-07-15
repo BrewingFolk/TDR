@@ -26,6 +26,7 @@
             <th>Name</th>
             <th>Venue</th>
             <th>Question</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -35,6 +36,11 @@
               <td><%= q.name || '—' %></td>
               <td><%= locationNames[q.locationId] || 'Unknown' %></td>
               <td><%= q.question %></td>
+              <td>
+                <form action="/admin/questions/<%= q.id %>/delete" method="POST" class="inline-form" onsubmit="return confirm('Delete this question?');">
+                  <button type="submit" class="button-danger">Delete</button>
+                </form>
+              </td>
             </tr>
           <% }); %>
         </tbody>

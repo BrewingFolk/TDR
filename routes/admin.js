@@ -35,6 +35,11 @@ router.get('/', requireAuth, (req, res) => {
   res.render('admin/dashboard', { questions, locations, locationNames });
 });
 
+router.post('/questions/:id/delete', requireAuth, async (req, res) => {
+  await dataStore.deleteQuestion(req.params.id);
+  res.redirect('/admin');
+});
+
 router.get('/present', requireAuth, (req, res) => {
   const locationId = (req.query.locationId || '').trim();
   const location = dataStore.getLocations().find((loc) => loc.id === locationId);
