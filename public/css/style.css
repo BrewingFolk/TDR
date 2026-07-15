@@ -1,14 +1,16 @@
 :root {
-  --color-bg: #f5f4f1;
+  --color-bg: #ffffff;
   --color-surface: #ffffff;
-  --color-text: #1f1c19;
-  --color-muted: #6b6660;
-  --color-border: #ddd8d1;
-  --color-accent: #a8562f;
-  --color-accent-hover: #8c4526;
+  --color-text: #111111;
+  --color-muted: #55504a;
+  --color-border: #111111;
+  --color-amber: #f2a900;
+  --color-amber-dark: #d99400;
   --color-danger: #b3392c;
   --color-success: #2e6b3e;
-  --radius: 8px;
+  --radius: 2px;
+  --font-display: "Archivo Black", "Helvetica Neue", Arial, sans-serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
   font-size: 16px;
 }
 
@@ -18,10 +20,88 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-family: var(--font-body);
   background: var(--color-bg);
   color: var(--color-text);
 }
+
+a {
+  color: inherit;
+}
+
+/* Hero */
+
+.hero {
+  background: var(--color-amber);
+  color: #111111;
+  padding: 56px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.hero-inner {
+  max-width: 640px;
+}
+
+.eyebrow {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.85rem;
+  margin: 0 0 16px;
+}
+
+.eyebrow-x {
+  font-weight: 400;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  line-height: 1.05;
+  margin: 0 0 8px;
+  letter-spacing: -0.01em;
+}
+
+.hero-subtitle {
+  font-style: italic;
+  font-size: 1.5rem;
+  margin: 0 0 24px;
+}
+
+.hero-copy {
+  font-size: 1.05rem;
+  line-height: 1.5;
+  margin: 0 0 16px;
+}
+
+.hero-meta {
+  font-weight: 700;
+  margin: 0;
+}
+
+.hero-mark {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.mark-wordmark {
+  height: 64px;
+  width: auto;
+}
+
+.mark-dr {
+  height: 64px;
+  width: auto;
+}
+
+/* Page / form */
 
 .page {
   display: flex;
@@ -31,7 +111,7 @@ body {
 
 .card {
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 2px solid var(--color-border);
   border-radius: var(--radius);
   padding: 32px;
   width: 100%;
@@ -46,8 +126,12 @@ body {
   max-width: 800px;
 }
 
-h1 {
+h1, h2 {
+  font-family: var(--font-display);
   margin-top: 0;
+}
+
+.card h2 {
   font-size: 1.5rem;
 }
 
@@ -63,8 +147,10 @@ h1 {
 }
 
 .question-form label {
-  font-weight: 600;
-  font-size: 0.9rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
   margin-top: 12px;
 }
 
@@ -72,7 +158,7 @@ h1 {
 .question-form select,
 .question-form textarea {
   padding: 10px 12px;
-  border: 1px solid var(--color-border);
+  border: 2px solid var(--color-border);
   border-radius: var(--radius);
   font-size: 1rem;
   font-family: inherit;
@@ -83,17 +169,20 @@ h1 {
 .question-form button {
   margin-top: 20px;
   padding: 12px 16px;
-  background: var(--color-accent);
-  color: #fff;
-  border: none;
+  background: #111111;
+  color: var(--color-amber);
+  border: 2px solid #111111;
   border-radius: var(--radius);
-  font-size: 1rem;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
   cursor: pointer;
 }
 
 .question-form button:hover {
-  background: var(--color-accent-hover);
+  background: var(--color-amber);
+  color: #111111;
 }
 
 .alert {
@@ -101,17 +190,36 @@ h1 {
   border-radius: var(--radius);
   margin-bottom: 16px;
   font-size: 0.9rem;
+  border: 2px solid transparent;
 }
 
 .alert-success {
   background: #e6f3e8;
   color: var(--color-success);
+  border-color: var(--color-success);
 }
 
 .alert-error {
   background: #fbeae7;
   color: var(--color-danger);
+  border-color: var(--color-danger);
 }
+
+/* Footer */
+
+.site-footer {
+  background: #111111;
+  color: #ffffff;
+  padding: 20px 24px;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+/* Admin */
 
 .admin-nav {
   display: flex;
@@ -119,18 +227,23 @@ h1 {
   gap: 16px;
   margin-bottom: 24px;
   padding-bottom: 16px;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 2px solid var(--color-border);
 }
 
 .admin-nav a {
   color: var(--color-muted);
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
 }
 
 .admin-nav a.active,
 .admin-nav a:hover {
   color: var(--color-text);
+  border-bottom: 3px solid var(--color-amber);
+  padding-bottom: 4px;
 }
 
 .admin-nav-logout {
@@ -139,11 +252,12 @@ h1 {
 
 .admin-nav-logout button {
   background: none;
-  border: 1px solid var(--color-border);
+  border: 2px solid var(--color-border);
   border-radius: var(--radius);
   padding: 6px 12px;
   cursor: pointer;
   color: var(--color-muted);
+  font-family: inherit;
 }
 
 .admin-table {
@@ -162,7 +276,7 @@ h1 {
 
 .admin-table th {
   color: var(--color-muted);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
@@ -174,7 +288,7 @@ h1 {
 
 .inline-form input {
   padding: 8px 10px;
-  border: 1px solid var(--color-border);
+  border: 2px solid var(--color-border);
   border-radius: var(--radius);
   font-size: 0.95rem;
   flex: 1;
@@ -182,13 +296,178 @@ h1 {
 
 .inline-form button {
   padding: 8px 12px;
-  border: 1px solid var(--color-border);
+  border: 2px solid var(--color-border);
   border-radius: var(--radius);
   background: var(--color-surface);
   cursor: pointer;
+  font-family: inherit;
 }
 
 .button-danger {
   color: var(--color-danger);
   border-color: var(--color-danger) !important;
+}
+
+/* Present-questions launcher (admin dashboard) */
+
+.present-form {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 16px;
+  margin-bottom: 24px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius);
+  background: #fdf6e6;
+}
+
+.present-form label {
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.present-form select {
+  padding: 8px 10px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+
+.present-form button {
+  padding: 10px 16px;
+  background: #111111;
+  color: var(--color-amber);
+  border: 2px solid #111111;
+  border-radius: var(--radius);
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+}
+
+.present-form button:hover {
+  background: var(--color-amber);
+  color: #111111;
+}
+
+/* Present-questions screen */
+
+.present-screen {
+  min-height: 100vh;
+  background: #111111;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+}
+
+.present-exit {
+  position: absolute;
+  top: 24px;
+  right: 32px;
+  color: #a8a29a;
+  text-decoration: none;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border: 2px solid #444;
+  border-radius: var(--radius);
+  padding: 6px 12px;
+}
+
+.present-exit:hover {
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+.present-header {
+  text-align: center;
+  padding-top: 8px;
+}
+
+.present-venue {
+  font-family: var(--font-display);
+  color: var(--color-amber);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 1.1rem;
+  margin: 0 0 4px;
+}
+
+.present-progress {
+  color: #a8a29a;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.present-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 32px;
+}
+
+.present-empty {
+  color: #a8a29a;
+  font-size: 1.4rem;
+}
+
+.present-question-wrap {
+  max-width: 900px;
+}
+
+.present-name {
+  color: var(--color-amber);
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+  margin: 0 0 20px;
+}
+
+.present-question {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 5vw, 3.4rem);
+  line-height: 1.15;
+  margin: 0;
+}
+
+.present-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding-bottom: 8px;
+}
+
+.present-hint {
+  color: #77716a;
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+.present-nav-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid #444;
+  background: transparent;
+  color: #ffffff;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.present-nav-btn:hover:not(:disabled) {
+  border-color: var(--color-amber);
+  color: var(--color-amber);
+}
+
+.present-nav-btn:disabled {
+  color: #444;
+  cursor: default;
 }

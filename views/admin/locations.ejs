@@ -4,8 +4,8 @@
   <section class="card card-wide">
     <%- include('../partials/admin-nav', { active: 'locations' }) %>
 
-    <h1>Locations</h1>
-    <p class="subtitle">These locations populate the dropdown on the public question form.</p>
+    <h1>Venues</h1>
+    <p class="subtitle">These venues populate the tour stop dropdown on the public question form.</p>
 
     <% if (error) { %>
       <p class="alert alert-error"><%= error %></p>
@@ -37,11 +37,11 @@
       </tbody>
     </table>
 
-    <h2>Add a Location</h2>
+    <h2>Add a Venue</h2>
     <form action="/admin/locations" method="POST" class="question-form">
-      <label for="name">Location name</label>
-      <input type="text" name="name" id="name" required placeholder="e.g. Downtown Taproom" />
-      <button type="submit">Add Location</button>
+      <label for="name">Venue name</label>
+      <input type="text" name="name" id="name" required placeholder="e.g. The Grosvenor, Sheffield" />
+      <button type="submit">Add Venue</button>
     </form>
   </section>
 </main>

@@ -19,8 +19,8 @@ routes/public.js        Public page + question submission
 routes/admin.js         Admin login/logout, dashboard, locations CRUD
 middleware/auth.js      Session guard for /admin routes
 lib/dataStore.js        Read/write helpers for the JSON data files
-data/questions.json     Submitted questions
-data/locations.json     Editable list of locations
+data/questions.json     Submitted questions (gitignored — runtime data, auto-created if missing)
+data/locations.json     Editable list of venues (tracked in git as seed config)
 views/                  EJS templates
 public/                 Static CSS/JS (swap in the real design here)
 ```
@@ -63,10 +63,18 @@ The site runs at `http://localhost:3000`. The public page is `/`, admin is `/adm
    `tdr.brewingfolk.co` and create the CNAME record it gives you in your DNS
    provider for `brewingfolk.co`.
 
+## Presenting questions
+
+From `/admin`, pick a venue and click **Start Presenting Questions** to open a
+full-screen view (`/admin/present?locationId=...`) showing one question at a
+time for that venue — name, question, right arrow for next, left arrow for
+previous, Esc to exit back to the dashboard. Meant to be projected/displayed
+live during the event.
+
 ## Notes
 
-- The design shown right now is an unstyled placeholder. Once the design image
-  is supplied, only `public/css/style.css` and the markup in `views/` need to
-  change — routes and data handling stay the same.
+- The Verdant / DR logo marks in `public/images/` were extracted from the
+  vector paths in the client's one-pager PDF as a placeholder — swap for
+  official brand SVG/EPS files before this is treated as final.
 - Deleting a location does not delete questions that reference it; those
-  questions show "Unknown" as their location in the admin dashboard.
+  questions show "Unknown" as their venue in the admin dashboard.

@@ -6,6 +6,16 @@
 
     <h1>Submitted Questions</h1>
 
+    <form action="/admin/present" method="GET" class="present-form">
+      <label for="presentLocationId">Present questions for</label>
+      <select name="locationId" id="presentLocationId" required>
+        <% locations.forEach(function(location) { %>
+          <option value="<%= location.id %>"><%= location.name %></option>
+        <% }); %>
+      </select>
+      <button type="submit">Start Presenting Questions</button>
+    </form>
+
     <% if (questions.length === 0) { %>
       <p class="subtitle">No questions have been submitted yet.</p>
     <% } else { %>
@@ -13,7 +23,8 @@
         <thead>
           <tr>
             <th>Submitted</th>
-            <th>Location</th>
+            <th>Name</th>
+            <th>Venue</th>
             <th>Question</th>
           </tr>
         </thead>
@@ -21,6 +32,7 @@
           <% questions.forEach(function(q) { %>
             <tr>
               <td><%= new Date(q.createdAt).toLocaleString() %></td>
+              <td><%= q.name || '—' %></td>
               <td><%= locationNames[q.locationId] || 'Unknown' %></td>
               <td><%= q.question %></td>
             </tr>

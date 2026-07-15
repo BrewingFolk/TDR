@@ -32,7 +32,24 @@ router.get('/', requireAuth, (req, res) => {
   locations.forEach((loc) => {
     locationNames[loc.id] = loc.name;
   });
-  res.render('admin/dashboard', { questions, locationNames });
+  res.render('admin/dashboard', { questions, locations, locationNames });
+});
+
+router.get('/present', requireAuth, (req, res) => {
+  const locationId = (req.query.locationId || '').trim();
+  const location = dataStore.getLocations().find((loc) => loc.id === locationId);
+
+  if (!location) {
+    return res.redirect('/admin');
+  }
+
+  const questions = dataStore
+    .getQuestions()
+    .filter((q) => q.locationId === locationId)
+    .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+    .map((q) => ({ name: q.name, question: q.question }));
+
+  res.render('admin/present', { location, questions });
 });
 
 router.get('/locations', requireAuth, (req, res) => {

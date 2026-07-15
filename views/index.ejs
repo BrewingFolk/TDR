@@ -1,21 +1,46 @@
-<%- include('partials/header', { title: 'Ask a Question' }) %>
+<%- include('partials/header', { title: '40 Years of TDR Tour — Verdant Brewing Co.' }) %>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">Verdant Brewing Co. <span class="eyebrow-x">&times;</span> The Designers Republic&trade;</p>
+    <h1 class="hero-title">40 Years of TDR&trade; Tour</h1>
+    <p class="hero-subtitle">Provoke response, create dialogue.</p>
+    <p class="hero-copy">
+      Ian Anderson founded The Designers Republic in Sheffield in 1986 &mdash; no portfolio,
+      no plan, just a knack for making things happen. Forty years on, we&rsquo;re taking that
+      legacy on the road: pints in hand, stories from four decades in the creative industry,
+      hosted by Verdant&rsquo;s Matthew Shaw.
+    </p>
+    <p class="hero-meta">Autumn 2026. Ten venues. Ask your question before the night.</p>
+  </div>
+  <div class="hero-mark">
+    <img src="/images/verdant-wordmark.png" alt="Verdant Brewing Co." class="mark-wordmark" />
+    <img src="/images/dr-mark.png" alt="The Designers Republic" class="mark-dr" />
+  </div>
+</header>
 
 <main class="page">
   <section class="card">
-    <h1>Ask a Question</h1>
-    <p class="subtitle">Have a question for us? Pick a location and let us know.</p>
+    <h2>Ask a Question</h2>
+    <p class="subtitle">
+      Got something you want Ian and Matthew to dig into on the night? Pick your tour stop
+      and send it in ahead of time.
+    </p>
 
     <% if (submitted) { %>
-      <p class="alert alert-success">Thanks — your question has been submitted.</p>
+      <p class="alert alert-success">Thanks &mdash; your question has been submitted.</p>
     <% } %>
     <% if (error) { %>
       <p class="alert alert-error"><%= error %></p>
     <% } %>
 
     <form action="/questions" method="POST" class="question-form">
-      <label for="locationId">Location</label>
+      <label for="name">Name</label>
+      <input type="text" name="name" id="name" required placeholder="Your name" value="<%= nameValue %>" />
+
+      <label for="locationId">Tour Stop</label>
       <select name="locationId" id="locationId" required>
-        <option value="" disabled <%= !selectedLocationId ? 'selected' : '' %>>Select a location&hellip;</option>
+        <option value="" disabled <%= !selectedLocationId ? 'selected' : '' %>>Select a tour stop&hellip;</option>
         <% locations.forEach(function(location) { %>
           <option value="<%= location.id %>" <%= selectedLocationId === location.id ? 'selected' : '' %>><%= location.name %></option>
         <% }); %>
@@ -28,5 +53,9 @@
     </form>
   </section>
 </main>
+
+<footer class="site-footer">
+  <p>Verdant Brewing Co. &times; The Designers Republic&trade; &mdash; 40 Years of TDR&trade; Tour, Autumn 2026</p>
+</footer>
 
 <%- include('partials/footer') %>

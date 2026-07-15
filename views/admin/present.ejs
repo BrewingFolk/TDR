@@ -1,0 +1,89 @@
+<%- include('../partials/header', { title: 'Presenting — ' + location.name }) %>
+
+<div class="present-screen">
+  <a href="/admin" class="present-exit">Exit</a>
+
+  <div class="present-header">
+    <p class="present-venue"><%= location.name %></p>
+    <p class="present-progress" id="presentProgress"></p>
+  </div>
+
+  <div class="present-body" id="presentBody">
+    <p class="present-empty" id="presentEmpty" hidden>No questions yet for this venue.</p>
+    <div class="present-question-wrap" id="presentQuestionWrap">
+      <p class="present-name" id="presentName"></p>
+      <p class="present-question" id="presentQuestion"></p>
+    </div>
+  </div>
+
+  <div class="present-controls">
+    <button type="button" class="present-nav-btn" id="presentPrev" aria-label="Previous question">&larr;</button>
+    <p class="present-hint">Use &larr; / &rarr; arrow keys &middot; Esc to exit</p>
+    <button type="button" class="present-nav-btn" id="presentNext" aria-label="Next question">&rarr;</button>
+  </div>
+</div>
+
+<script id="questions-data" type="application/json"><%- JSON.stringify(questions).replace(/</g, '\\u003c') %></script>
+<script>
+  (function () {
+    var questions = JSON.parse(document.getElementById('questions-data').textContent);
+    var index = 0;
+
+    var progressEl = document.getElementById('presentProgress');
+    var emptyEl = document.getElementById('presentEmpty');
+    var wrapEl = document.getElementById('presentQuestionWrap');
+    var nameEl = document.getElementById('presentName');
+    var questionEl = document.getElementById('presentQuestion');
+    var prevBtn = document.getElementById('presentPrev');
+    var nextBtn = document.getElementById('presentNext');
+
+    function render() {
+      if (questions.length === 0) {
+        emptyEl.hidden = false;
+        wrapEl.hidden = true;
+        progressEl.textContent = '';
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
+        return;
+      }
+
+      var current = questions[index];
+      nameEl.textContent = current.name || 'Anonymous';
+      questionEl.textContent = current.question;
+      progressEl.textContent = 'Question ' + (index + 1) + ' of ' + questions.length;
+      prevBtn.disabled = index === 0;
+      nextBtn.disabled = index === questions.length - 1;
+    }
+
+    function next() {
+      if (index < questions.length - 1) {
+        index += 1;
+        render();
+      }
+    }
+
+    function prev() {
+      if (index > 0) {
+        index -= 1;
+        render();
+      }
+    }
+
+    prevBtn.addEventListener('click', prev);
+    nextBtn.addEventListener('click', next);
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') {
+        next();
+      } else if (e.key === 'ArrowLeft') {
+        prev();
+      } else if (e.key === 'Escape') {
+        window.location.href = '/admin';
+      }
+    });
+
+    render();
+  })();
+</script>
+
+<%- include('../partials/footer') %>
