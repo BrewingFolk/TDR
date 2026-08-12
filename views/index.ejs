@@ -1,61 +1,112 @@
 <%- include('partials/header', { title: '40 Years of TDR Tour — Verdant Brewing Co.' }) %>
 
 <header class="hero">
-  <div class="hero-inner">
-    <p class="eyebrow">Verdant Brewing Co. <span class="eyebrow-x">&times;</span> The Designers Republic&trade;</p>
-    <h1 class="hero-title">40 Years of TDR&trade; Tour</h1>
-    <p class="hero-subtitle">Provoke response, create dialogue.</p>
-    <p class="hero-copy">
-      Ian Anderson founded The Designers Republic in Sheffield in 1986 &mdash; no portfolio,
-      no plan, just a knack for making things happen. Forty years on, we&rsquo;re taking that
-      legacy on the road: pints in hand, stories from four decades in the creative industry,
-      hosted by Verdant&rsquo;s Matthew Shaw.
-    </p>
-    <p class="hero-meta">Autumn 2026. Ten venues. Ask your question before the night.</p>
-  </div>
-  <div class="hero-mark">
-    <img src="/images/verdant-wordmark.png" alt="Verdant Brewing Co." class="mark-wordmark" />
-    <img src="/images/dr-mark.png" alt="The Designers Republic" class="mark-dr" />
+  <div class="hero-shell">
+    <div class="hero-mark">
+      <img src="/images/verdant-wordmark.png" alt="Verdant Brewing Co." class="mark-wordmark" />
+      <img src="/images/dr-mark.png" alt="The Designers Republic" class="mark-dr" />
+    </div>
+    <div class="hero-inner">
+      <p class="eyebrow">Verdant Brewing Co. <span class="eyebrow-x">&times;</span> The Designers Republic&trade;</p>
+      <h1 class="hero-title">40 Years of TDR&trade; Tour</h1>
+      <p class="hero-subtitle">Provoke response, create dialogue.</p>
+      <p class="hero-copy">
+        Ian Anderson founded The Designers Republic in Sheffield in 1986 &mdash; no portfolio,
+        no plan, just a knack for making things happen. Forty years on, we&rsquo;re taking that
+        legacy on the road: pints in hand, stories from four decades in the creative industry,
+        hosted by Verdant&rsquo;s Matthew Shaw.
+      </p>
+      <p class="hero-meta">Autumn 2026. Ten venues. Ask your question before the night.</p>
+    </div>
   </div>
 </header>
 
 <main class="page">
-  <section class="card">
-    <h2>Ask a Question</h2>
-    <p class="subtitle">
-      Got something you want Ian and Matthew to dig into on the night? Pick your tour stop
-      and send it in ahead of time.
-    </p>
-
-    <% if (submitted) { %>
-      <p class="alert alert-success">Thanks &mdash; your question has been submitted.</p>
-    <% } %>
+  <section class="card card-split">
     <% if (error) { %>
       <p class="alert alert-error"><%= error %></p>
     <% } %>
 
-    <form action="/questions" method="POST" class="question-form">
-      <label for="name">Name</label>
-      <input type="text" name="name" id="name" required placeholder="Your name" value="<%= nameValue %>" />
+    <div class="split-grid">
+      <div class="ticket-header">
+        <h2>Get Your Ticket</h2>
+        <p class="subtitle">Pick your tour stop to buy tickets.</p>
+      </div>
 
-      <label for="locationId">Tour Stop</label>
-      <select name="locationId" id="locationId" required>
-        <option value="" disabled <%= !selectedLocationId ? 'selected' : '' %>>Select a tour stop&hellip;</option>
-        <% locations.forEach(function(location) { %>
-          <option value="<%= location.id %>" <%= selectedLocationId === location.id ? 'selected' : '' %>><%= location.name %></option>
-        <% }); %>
-      </select>
+      <div class="ticket-column">
+        <label for="locationId">Tour Stop</label>
+        <select name="locationId" id="locationId" form="questionForm" required>
+          <option value="" disabled <%= !selectedLocationId ? 'selected' : '' %>>Select a tour stop&hellip;</option>
+          <% locations.forEach(function(location) { %>
+            <option
+              value="<%= location.id %>"
+              data-ticket-url="<%= location.ticketUrl || '' %>"
+              <%= selectedLocationId === location.id ? 'selected' : '' %>
+            ><%= location.name %></option>
+          <% }); %>
+        </select>
 
-      <label for="question">Your question</label>
-      <textarea name="question" id="question" rows="5" required placeholder="Type your question here..."><%= questionValue %></textarea>
+        <button type="button" id="ticketButton" class="ticket-cta" disabled>Select a tour stop to buy tickets</button>
+        <p class="ticket-price">&pound;7.77 + booking fees</p>
+      </div>
 
-      <button type="submit">Submit Question</button>
-    </form>
+      <div class="question-header">
+        <h2>Ask a Question</h2>
+        <p class="subtitle">Optional &mdash; send it in ahead of the night.</p>
+      </div>
+
+      <div class="question-column">
+        <label for="name">Got a question for the night? <em>(optional)</em></label>
+        <input type="text" name="name" id="name" form="questionForm" placeholder="Your name" value="<%= nameValue %>" />
+
+        <label for="question">Your question</label>
+        <textarea name="question" id="question" form="questionForm" rows="5" placeholder="Type your question here..."><%= questionValue %></textarea>
+
+        <% if (submitted) { %>
+          <p class="alert alert-success">Thanks &mdash; your question has been submitted.</p>
+        <% } else { %>
+          <button type="submit" form="questionForm">Submit Question</button>
+        <% } %>
+      </div>
+    </div>
+
+    <form id="questionForm" action="/questions" method="POST"></form>
   </section>
 </main>
 
 <footer class="site-footer">
   <p>Verdant Brewing Co. &times; The Designers Republic&trade; &mdash; 40 Years of TDR&trade; Tour, Autumn 2026</p>
 </footer>
+
+<script>
+  (function () {
+    var select = document.getElementById('locationId');
+    var ticketButton = document.getElementById('ticketButton');
+
+    function update() {
+      var option = select.options[select.selectedIndex];
+      var url = option ? option.getAttribute('data-ticket-url') : '';
+
+      if (url) {
+        ticketButton.disabled = false;
+        ticketButton.textContent = 'Purchase Tickets for ' + option.textContent;
+        ticketButton.onclick = function () {
+          window.open(url, '_blank', 'noopener');
+        };
+      } else if (option && option.value) {
+        ticketButton.disabled = true;
+        ticketButton.textContent = 'Tickets not yet available for ' + option.textContent;
+        ticketButton.onclick = null;
+      } else {
+        ticketButton.disabled = true;
+        ticketButton.textContent = 'Select a tour stop to buy tickets';
+        ticketButton.onclick = null;
+      }
+    }
+
+    select.addEventListener('change', update);
+    update();
+  })();
+</script>
 
 <%- include('partials/footer') %>

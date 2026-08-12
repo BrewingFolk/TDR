@@ -34,12 +34,23 @@ a {
 .hero {
   background: var(--color-amber);
   color: #111111;
-  padding: 56px 24px;
+  padding: 56px 20px;
+}
+
+.hero-shell {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 32px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: flex-start;
-  gap: 32px;
-  flex-wrap: wrap;
+  gap: 24px;
+}
+
+@media (min-width: 700px) {
+  .hero-shell {
+    max-width: 760px;
+  }
 }
 
 .hero-inner {
@@ -126,6 +137,10 @@ a {
   max-width: 800px;
 }
 
+.card-split {
+  max-width: 480px;
+}
+
 h1, h2 {
   font-family: var(--font-display);
   margin-top: 0;
@@ -146,9 +161,66 @@ h1, h2 {
   gap: 6px;
 }
 
-.question-form label {
+.split-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "ticket-header"
+    "ticket-body"
+    "question-header"
+    "question-body";
+  gap: 24px;
+}
+
+.ticket-header,
+.question-header {
+  grid-area: ticket-header;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.question-header {
+  grid-area: question-header;
+}
+
+.ticket-header .subtitle,
+.question-header .subtitle {
+  margin-bottom: 0;
+}
+
+.ticket-column,
+.question-column {
+  grid-area: ticket-body;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.question-column {
+  grid-area: question-body;
+}
+
+@media (min-width: 700px) {
+  .card-split {
+    max-width: 760px;
+  }
+
+  .split-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "ticket-header question-header"
+      "ticket-body question-body";
+    column-gap: 48px;
+    row-gap: 24px;
+    align-items: start;
+  }
+}
+
+.question-form label,
+.split-grid label {
   font-weight: 700;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.03em;
   margin-top: 12px;
@@ -156,7 +228,10 @@ h1, h2 {
 
 .question-form input,
 .question-form select,
-.question-form textarea {
+.question-form textarea,
+.split-grid input,
+.split-grid select,
+.split-grid textarea {
   padding: 10px 12px;
   border: 2px solid var(--color-border);
   border-radius: var(--radius);
@@ -166,7 +241,8 @@ h1, h2 {
   color: var(--color-text);
 }
 
-.question-form button {
+.question-form button,
+.split-grid button {
   margin-top: 20px;
   padding: 12px 16px;
   background: #111111;
@@ -180,7 +256,8 @@ h1, h2 {
   cursor: pointer;
 }
 
-.question-form button:hover {
+.question-form button:hover,
+.split-grid button:hover {
   background: var(--color-amber);
   color: #111111;
 }
@@ -203,6 +280,44 @@ h1, h2 {
   background: #fbeae7;
   color: var(--color-danger);
   border-color: var(--color-danger);
+}
+
+.ticket-cta {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin: 12px 0 4px;
+  padding: 12px 16px;
+  background: var(--color-amber);
+  color: #111111;
+  border: 2px solid #111111;
+  border-radius: var(--radius);
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.ticket-cta:hover:not(:disabled) {
+  background: #111111;
+  color: var(--color-amber);
+}
+
+.ticket-cta:disabled {
+  background: transparent;
+  color: var(--color-muted);
+  border-color: var(--color-border);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.ticket-price {
+  margin: 0 0 4px;
+  text-align: center;
+  color: var(--color-muted);
+  font-size: 0.85rem;
 }
 
 /* Footer */
@@ -279,6 +394,26 @@ h1, h2 {
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
+}
+
+.admin-table td input {
+  width: 100%;
+  min-width: 160px;
+  padding: 8px 10px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  font-family: inherit;
+}
+
+.admin-table td button[type="submit"] {
+  padding: 8px 12px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
 }
 
 .inline-form {

@@ -15,6 +15,8 @@
       <thead>
         <tr>
           <th>Name</th>
+          <th>Ticket URL</th>
+          <th></th>
           <th></th>
         </tr>
       </thead>
@@ -22,10 +24,13 @@
         <% locations.forEach(function(location) { %>
           <tr>
             <td>
-              <form action="/admin/locations/<%= location.id %>/edit" method="POST" class="inline-form">
-                <input type="text" name="name" value="<%= location.name %>" required />
-                <button type="submit">Save</button>
-              </form>
+              <input type="text" name="name" form="edit-<%= location.id %>" value="<%= location.name %>" required />
+            </td>
+            <td>
+              <input type="url" name="ticketUrl" form="edit-<%= location.id %>" value="<%= location.ticketUrl || '' %>" placeholder="https://www.tickettailor.com/events/..." />
+            </td>
+            <td>
+              <button type="submit" form="edit-<%= location.id %>">Save</button>
             </td>
             <td>
               <form action="/admin/locations/<%= location.id %>/delete" method="POST" class="inline-form" onsubmit="return confirm('Delete this location?');">
@@ -37,10 +42,18 @@
       </tbody>
     </table>
 
+    <% locations.forEach(function(location) { %>
+      <form id="edit-<%= location.id %>" action="/admin/locations/<%= location.id %>/edit" method="POST"></form>
+    <% }); %>
+
     <h2>Add a Venue</h2>
     <form action="/admin/locations" method="POST" class="question-form">
       <label for="name">Venue name</label>
       <input type="text" name="name" id="name" required placeholder="e.g. The Grosvenor, Sheffield" />
+
+      <label for="ticketUrl">Ticket URL (optional)</label>
+      <input type="url" name="ticketUrl" id="ticketUrl" placeholder="https://www.tickettailor.com/events/..." />
+
       <button type="submit">Add Venue</button>
     </form>
   </section>
