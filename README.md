@@ -20,7 +20,7 @@ routes/admin.js         Admin login/logout, dashboard, locations CRUD
 middleware/auth.js      Session guard for /admin routes
 lib/dataStore.js        Read/write helpers for the JSON data files
 data/questions.json     Submitted questions (gitignored — runtime data, auto-created if missing)
-data/locations.json     Editable list of venues (tracked in git as seed config)
+data/locations.json     Editable list of venues (gitignored — manage via /admin/locations, auto-created if missing)
 views/                  EJS templates
 public/                 Static CSS/JS (swap in the real design here)
 ```
