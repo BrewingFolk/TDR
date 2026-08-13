@@ -299,6 +299,13 @@ select {
   border-color: var(--color-danger);
 }
 
+.venue-date {
+  margin: 12px 0 0;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--color-text);
+}
+
 .ticket-cta {
   display: block;
   width: 100%;

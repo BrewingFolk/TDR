@@ -41,10 +41,13 @@
             <option
               value="<%= location.id %>"
               data-ticket-url="<%= location.ticketUrl || '' %>"
+              data-date="<%= location.date || '' %>"
               <%= selectedLocationId === location.id ? 'selected' : '' %>
             ><%= location.name %></option>
           <% }); %>
         </select>
+
+        <p class="venue-date" id="venueDate" hidden></p>
 
         <button type="button" id="ticketButton" class="ticket-cta" disabled>Select a tour stop to buy tickets</button>
         <p class="ticket-price">&pound;7.77 + booking fees</p>
@@ -82,10 +85,31 @@
   (function () {
     var select = document.getElementById('locationId');
     var ticketButton = document.getElementById('ticketButton');
+    var venueDate = document.getElementById('venueDate');
+
+    function formatDate(dateStr) {
+      var parsed = new Date(dateStr + 'T00:00:00');
+      if (isNaN(parsed.getTime())) return '';
+      return parsed.toLocaleDateString('en-GB', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      });
+    }
 
     function update() {
       var option = select.options[select.selectedIndex];
       var url = option ? option.getAttribute('data-ticket-url') : '';
+      var dateStr = option ? option.getAttribute('data-date') : '';
+      var formattedDate = dateStr ? formatDate(dateStr) : '';
+
+      if (formattedDate) {
+        venueDate.textContent = formattedDate;
+        venueDate.hidden = false;
+      } else {
+        venueDate.hidden = true;
+      }
 
       if (url) {
         ticketButton.disabled = false;

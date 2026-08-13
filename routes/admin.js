@@ -64,26 +64,28 @@ router.get('/locations', requireAuth, (req, res) => {
 router.post('/locations', requireAuth, async (req, res) => {
   const name = (req.body.name || '').trim();
   const ticketUrl = (req.body.ticketUrl || '').trim();
+  const date = (req.body.date || '').trim();
   if (!name) {
     return res.status(400).render('admin/locations', {
       locations: dataStore.getLocations(),
       error: 'Location name is required.'
     });
   }
-  await dataStore.addLocation(name, ticketUrl);
+  await dataStore.addLocation(name, ticketUrl, date);
   res.redirect('/admin/locations');
 });
 
 router.post('/locations/:id/edit', requireAuth, async (req, res) => {
   const name = (req.body.name || '').trim();
   const ticketUrl = (req.body.ticketUrl || '').trim();
+  const date = (req.body.date || '').trim();
   if (!name) {
     return res.status(400).render('admin/locations', {
       locations: dataStore.getLocations(),
       error: 'Location name is required.'
     });
   }
-  await dataStore.updateLocation(req.params.id, name, ticketUrl);
+  await dataStore.updateLocation(req.params.id, name, ticketUrl, date);
   res.redirect('/admin/locations');
 });
 

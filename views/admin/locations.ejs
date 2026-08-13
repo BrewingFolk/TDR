@@ -15,6 +15,7 @@
       <thead>
         <tr>
           <th>Name</th>
+          <th>Date</th>
           <th>Ticket URL</th>
           <th></th>
           <th></th>
@@ -25,6 +26,9 @@
           <tr>
             <td>
               <input type="text" name="name" form="edit-<%= location.id %>" value="<%= location.name %>" required />
+            </td>
+            <td>
+              <input type="date" name="date" form="edit-<%= location.id %>" value="<%= location.date || '' %>" />
             </td>
             <td>
               <input type="url" name="ticketUrl" form="edit-<%= location.id %>" value="<%= location.ticketUrl || '' %>" placeholder="https://www.tickettailor.com/events/..." />
@@ -50,6 +54,9 @@
     <form action="/admin/locations" method="POST" class="question-form">
       <label for="name">Venue name</label>
       <input type="text" name="name" id="name" required placeholder="e.g. The Grosvenor, Sheffield" />
+
+      <label for="date">Date (optional)</label>
+      <input type="date" name="date" id="date" />
 
       <label for="ticketUrl">Ticket URL (optional)</label>
       <input type="url" name="ticketUrl" id="ticketUrl" placeholder="https://www.tickettailor.com/events/..." />

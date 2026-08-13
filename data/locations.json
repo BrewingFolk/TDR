@@ -2,6 +2,7 @@
   {
     "id": "general",
     "name": "General",
-    "ticketUrl": ""
+    "ticketUrl": "",
+    "date": ""
   }
 ]
