@@ -5,7 +5,10 @@
     <%- include('../partials/admin-nav', { active: 'content' }) %>
 
     <h1>Hero Text</h1>
-    <p class="subtitle">Edit the copy shown in the amber hero section on the public page.</p>
+    <p class="subtitle">
+      Edit the copy shown in the amber hero section on the public page.
+      HTML tags (e.g. <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code>, <code>&lt;br&gt;</code>, <code>&lt;a href="..."&gt;</code>) are rendered as-is, so double-check anything you paste in.
+    </p>
 
     <% if (saved) { %>
       <p class="alert alert-success">Saved.</p>
