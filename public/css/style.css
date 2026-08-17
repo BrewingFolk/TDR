@@ -9,7 +9,7 @@
   --color-danger: #b3392c;
   --color-success: #2e6b3e;
   --radius: 2px;
-  --font-display: "Archivo Black", "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
   font-size: 16px;
 }
@@ -68,10 +68,11 @@ a {
 
 .hero-title {
   font-family: var(--font-display);
+  font-weight: 700;
   font-size: clamp(2rem, 4vw, 3rem);
   line-height: 1.05;
   margin: 0 0 8px;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.06em;
 }
 
 .hero-subtitle {
@@ -141,6 +142,7 @@ a {
 
 h1, h2 {
   font-family: var(--font-display);
+  font-weight: 700;
   margin-top: 0;
 }
 
@@ -264,6 +266,7 @@ select {
   border: 2px solid #111111;
   border-radius: var(--radius);
   font-family: var(--font-display);
+  font-weight: 700;
   font-size: 0.95rem;
   text-transform: uppercase;
   letter-spacing: 0.03em;
@@ -314,6 +317,7 @@ select {
   border: 2px solid #111111;
   border-radius: var(--radius);
   font-family: var(--font-display);
+  font-weight: 700;
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 0.03em;
@@ -500,6 +504,7 @@ select {
   border: 2px solid #111111;
   border-radius: var(--radius);
   font-family: var(--font-display);
+  font-weight: 700;
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.03em;
@@ -548,6 +553,7 @@ select {
 
 .present-venue {
   font-family: var(--font-display);
+  font-weight: 700;
   color: var(--color-amber);
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -582,12 +588,14 @@ select {
 .present-name {
   color: var(--color-amber);
   font-family: var(--font-display);
+  font-weight: 700;
   font-size: clamp(1.1rem, 2.5vw, 1.6rem);
   margin: 0 0 20px;
 }
 
 .present-question {
   font-family: var(--font-display);
+  font-weight: 700;
   font-size: clamp(1.8rem, 5vw, 3.4rem);
   line-height: 1.15;
   margin: 0;
