@@ -66,10 +66,6 @@ a {
   margin: 0 0 16px;
 }
 
-.eyebrow-x {
-  font-weight: 400;
-}
-
 .hero-title {
   font-family: var(--font-display);
   font-size: clamp(2rem, 4vw, 3rem);
@@ -88,6 +84,7 @@ a {
   font-size: 1.05rem;
   line-height: 1.5;
   margin: 0 0 16px;
+  white-space: pre-line;
 }
 
 .hero-meta {

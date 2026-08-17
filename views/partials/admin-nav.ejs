@@ -1,6 +1,7 @@
 <nav class="admin-nav">
   <a href="/admin" class="<%= active === 'questions' ? 'active' : '' %>">Questions</a>
   <a href="/admin/locations" class="<%= active === 'locations' ? 'active' : '' %>">Locations</a>
+  <a href="/admin/content" class="<%= active === 'content' ? 'active' : '' %>">Content</a>
   <form action="/admin/logout" method="POST" class="admin-nav-logout">
     <button type="submit">Log Out</button>
   </form>

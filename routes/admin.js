@@ -94,4 +94,27 @@ router.post('/locations/:id/delete', requireAuth, async (req, res) => {
   res.redirect('/admin/locations');
 });
 
+router.get('/content', requireAuth, (req, res) => {
+  res.render('admin/content', { content: dataStore.getContent(), error: null, saved: false });
+});
+
+router.post('/content', requireAuth, async (req, res) => {
+  const eyebrow = (req.body.eyebrow || '').trim();
+  const title = (req.body.title || '').trim();
+  const subtitle = (req.body.subtitle || '').trim();
+  const copy = (req.body.copy || '').trim();
+  const meta = (req.body.meta || '').trim();
+
+  if (!title || !copy) {
+    return res.status(400).render('admin/content', {
+      content: { eyebrow, title, subtitle, copy, meta },
+      error: 'Title and main copy are required.',
+      saved: false
+    });
+  }
+
+  const content = await dataStore.updateContent({ eyebrow, title, subtitle, copy, meta });
+  res.render('admin/content', { content, error: null, saved: true });
+});
+
 module.exports = router;

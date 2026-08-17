@@ -10,6 +10,7 @@ router.get('/', (req, res) => {
 
   res.render('index', {
     locations,
+    content: dataStore.getContent(),
     submitted: req.query.submitted === '1',
     error: null,
     nameValue: '',
@@ -28,6 +29,7 @@ router.post('/questions', async (req, res) => {
   if (!validLocation) {
     return res.status(400).render('index', {
       locations,
+      content: dataStore.getContent(),
       submitted: false,
       error: 'Please select a tour stop.',
       nameValue: name,

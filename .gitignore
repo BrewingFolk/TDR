@@ -4,3 +4,4 @@ node_modules/
 npm-debug.log*
 data/questions.json
 data/locations.json
+data/content.json
