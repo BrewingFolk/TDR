@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const dataStore = require('../lib/dataStore');
 const { requireAuth } = require('../middleware/auth');
+const asyncHandler = require('../lib/asyncHandler');
 
 router.get('/login', (req, res) => {
   if (req.session && req.session.isAdmin) {
@@ -35,10 +36,10 @@ router.get('/', requireAuth, (req, res) => {
   res.render('admin/dashboard', { questions, locations, locationNames });
 });
 
-router.post('/questions/:id/delete', requireAuth, async (req, res) => {
+router.post('/questions/:id/delete', requireAuth, asyncHandler(async (req, res) => {
   await dataStore.deleteQuestion(req.params.id);
   res.redirect('/admin');
-});
+}));
 
 router.get('/present', requireAuth, (req, res) => {
   const locationId = (req.query.locationId || '').trim();
@@ -61,7 +62,7 @@ router.get('/locations', requireAuth, (req, res) => {
   res.render('admin/locations', { locations: dataStore.getLocations(), error: null });
 });
 
-router.post('/locations', requireAuth, async (req, res) => {
+router.post('/locations', requireAuth, asyncHandler(async (req, res) => {
   const name = (req.body.name || '').trim();
   const ticketUrl = (req.body.ticketUrl || '').trim();
   const date = (req.body.date || '').trim();
@@ -73,9 +74,9 @@ router.post('/locations', requireAuth, async (req, res) => {
   }
   await dataStore.addLocation(name, ticketUrl, date);
   res.redirect('/admin/locations');
-});
+}));
 
-router.post('/locations/:id/edit', requireAuth, async (req, res) => {
+router.post('/locations/:id/edit', requireAuth, asyncHandler(async (req, res) => {
   const name = (req.body.name || '').trim();
   const ticketUrl = (req.body.ticketUrl || '').trim();
   const date = (req.body.date || '').trim();
@@ -87,18 +88,18 @@ router.post('/locations/:id/edit', requireAuth, async (req, res) => {
   }
   await dataStore.updateLocation(req.params.id, name, ticketUrl, date);
   res.redirect('/admin/locations');
-});
+}));
 
-router.post('/locations/:id/delete', requireAuth, async (req, res) => {
+router.post('/locations/:id/delete', requireAuth, asyncHandler(async (req, res) => {
   await dataStore.deleteLocation(req.params.id);
   res.redirect('/admin/locations');
-});
+}));
 
 router.get('/content', requireAuth, (req, res) => {
   res.render('admin/content', { content: dataStore.getContent(), error: null, saved: false });
 });
 
-router.post('/content', requireAuth, async (req, res) => {
+router.post('/content', requireAuth, asyncHandler(async (req, res) => {
   const eyebrow = (req.body.eyebrow || '').trim();
   const title = (req.body.title || '').trim();
   const subtitle = (req.body.subtitle || '').trim();
@@ -115,6 +116,6 @@ router.post('/content', requireAuth, async (req, res) => {
 
   const content = await dataStore.updateContent({ eyebrow, title, subtitle, copy, meta });
   res.render('admin/content', { content, error: null, saved: true });
-});
+}));
 
 module.exports = router;

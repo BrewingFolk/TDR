@@ -44,6 +44,12 @@ app.use(
 app.use('/', publicRoutes);
 app.use('/admin', adminRoutes);
 
+// eslint-disable-next-line no-unused-vars
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).send('Something went wrong. Please try again.');
+});
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);

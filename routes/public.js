@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const dataStore = require('../lib/dataStore');
+const asyncHandler = require('../lib/asyncHandler');
 
 router.get('/', (req, res) => {
   const locations = dataStore.getLocations();
@@ -19,7 +20,7 @@ router.get('/', (req, res) => {
   });
 });
 
-router.post('/questions', async (req, res) => {
+router.post('/questions', asyncHandler(async (req, res) => {
   const name = (req.body.name || '').trim();
   const question = (req.body.question || '').trim();
   const locationId = (req.body.locationId || '').trim();
@@ -44,6 +45,6 @@ router.post('/questions', async (req, res) => {
 
   await dataStore.addQuestion({ name, question, locationId });
   res.redirect(`/?submitted=1&locationId=${encodeURIComponent(locationId)}`);
-});
+}));
 
 module.exports = router;
