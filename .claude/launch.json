@@ -4,9 +4,31 @@
     {
       "name": "tdr-dev",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeArgs": [
+        "run",
+        "dev"
+      ],
       "port": 3000,
       "autoPort": true
+    },
+    {
+      "name": "cornwall-ticketing-dev",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-c",
+        "cd /Users/robeam/Sites/cornwall-ticketing && npm run dev"
+      ],
+      "port": 3001,
+      "autoPort": true
+    },
+    {
+      "name": "wheel-road-dev",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-c",
+        "cd /Users/robeam/Sites/wheel-road && npm run dev"
+      ],
+      "port": 4321
     }
   ]
 }
